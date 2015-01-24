@@ -7,6 +7,8 @@
 
 My standard node module template.
 
+**P.S. Install [`mversion`](https://github.com/mikaelbr/mversion) to automatically version and tag all files with `mversion [ major | minor | patch | prerelease ] -m`**
+
 ## Installation
 
 ```sh
