@@ -2,8 +2,6 @@
 
 [![NPM version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
-[![Build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
 
 Create my standard node module template.
 
@@ -53,9 +51,5 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/node-module-template.svg?style=flat
 [npm-url]: https://npmjs.org/package/node-module-template
-[travis-image]: https://img.shields.io/travis/blakeembrey/node-module-template.svg?style=flat
-[travis-url]: https://travis-ci.org/blakeembrey/node-module-template
-[coveralls-image]: https://img.shields.io/coveralls/blakeembrey/node-module-template.svg?style=flat
-[coveralls-url]: https://coveralls.io/r/blakeembrey/node-module-template?branch=master
 [downloads-image]: https://img.shields.io/npm/dm/node-module-template.svg?style=flat
 [downloads-url]: https://npmjs.org/package/node-module-template
