@@ -1,0 +1,19 @@
+{
+  "name": "{{{moduleName}}}",
+  "version": "0.0.0",
+  "homepage": "https://github.com/{{{username}}}/{{{moduleName}}}",
+  "authors": [
+    "{{{author}}}"
+  ],
+  "description": "{{{description}}}",
+  "main": "{{{moduleName}}}.js",
+  "keywords": [],
+  "license": "{{{license}}}",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

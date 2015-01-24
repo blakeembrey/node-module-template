@@ -1,16 +1,12 @@
 {
   "name": "node-module-template",
-  "private": true,
   "version": "0.0.0",
-  "description": "My standard node module template",
-  "main": "node-module-template.js",
+  "description": "Generate my standard node module template",
+  "bin": "bin/node-module-template.js",
   "files": [
-    "node-module-template.js",
+    "bin/node-module-template.js",
     "LICENSE"
   ],
-  "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --bail"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/blakeembrey/node-module-template.git"
@@ -32,19 +28,20 @@
     "url": "https://github.com/blakeembrey/node-module-template/issues"
   },
   "homepage": "https://github.com/blakeembrey/node-module-template",
-  "devDependencies": {
-    "browserify": "^8.1.1",
-    "chai": "^1.10.0",
-    "istanbul": "^0.3.5",
-    "mocha": "^2.1.0",
-    "pre-commit": "0.0.11",
-    "which": "^1.0.8"
-  },
   "dependencies": {
-    "bunyan": "^1.2.4",
-    "debug": "^2.1.1",
-    "express": "^4.11.0",
-    "popsicle": "^0.3.4",
-    "verror": "^1.6.0"
+    "camel-case": "^1.1.1",
+    "chalk": "^0.5.1",
+    "commander": "^2.6.0",
+    "git-user-email": "^0.1.1",
+    "git-user-name": "^0.1.0",
+    "github-username": "^1.1.1",
+    "handlebars": "^2.0.0",
+    "osi-licenses": "^0.1.0",
+    "osi-licenses-full": "^1.0.0",
+    "param-case": "^1.1.0",
+    "rimraf": "^2.2.8",
+    "sentence-case": "^1.1.1",
+    "somebody": "^2.0.0",
+    "title-case": "^1.1.0"
   }
 }

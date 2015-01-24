@@ -5,25 +5,47 @@
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 
-My standard node module template.
+Create my standard node module template.
 
 **P.S. Install [`mversion`](https://github.com/mikaelbr/mversion) to automatically version and tag all files with `mversion [ major | minor | patch | prerelease ] -m`**
 
 ## Installation
 
 ```sh
-git clone git@github.com:blakeembrey/node-module-template.git [ module name ]
-cd node-module-template
-rm -rf .git coverage
+npm install node-module-template -g
 ```
 
 ## Usage
 
-```js
-var template = require('node-module-template');
+```sh
+node-module-template upper-case
 
-template(); //=> "Hello world!"
+cd upper-case
+ls
+# bower.json
+# package.json
+# README.md
+# ...
 ```
+
+1. Remove any files that aren't neccessary to your configuration.
+2. Update the package (`package.json` and `bower.json`) description and keywords.
+3. Add test cases
+4. Implement module to pass test cases.
+5. Repeat step 3 until module is complete.
+6. Update README file.
+7. `npm publish` and/or `bower register [name] [url]`
+
+## Dependencies
+
+* [Bunyan](https://github.com/trentm/node-bunyan) `npm install bunyan --save`
+* [Express](https://github.com/strongloop/express) `npm install express --save`
+* [VError](https://github.com/davepacheco/node-verror) `npm install verror --save`
+* [Popsicle](https://github.com/blakeembrey/popsicle) `npm install popsicle --save`
+* [Debug](https://github.com/visionmedia/debug) `npm install debug --save`
+* [Browserify](https://github.com/substack/node-browserify) `npm install browserify --save-dev`
+* [Karma](https://github.com/karma-runner/karma) `npm install karma --save-dev`
+* [Gulp](https://github.com/gulpjs/gulp) `npm install gulp --save-dev`
 
 ## License
 

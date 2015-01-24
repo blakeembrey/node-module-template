@@ -1,0 +1,35 @@
+{
+  "name": "{{{moduleName}}}",
+  "version": "0.0.0",
+  "description": "{{{description}}}",
+  "main": "{{{moduleName}}}.js",
+  "files": [
+    "{{{moduleName}}}.js",
+    "LICENSE"
+  ],
+  "scripts": {
+    "jshint": "jshint .",
+    "mocha": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --bail",
+    "test": "npm run jshint && npm run mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/{{{username}}}/{{{moduleName}}}.git"
+  },
+  "keywords": [],
+  "author": "{{{author}}}",
+  "license": "{{{license}}}",
+  "bugs": {
+    "url": "https://github.com/{{{username}}}/{{{moduleName}}}/issues"
+  },
+  "homepage": "https://github.com/{{{username}}}/{{{moduleName}}}",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "istanbul": "^0.3.5",
+    "jshint": "^2.6.0",
+    "mocha": "^2.1.0",
+    "pre-commit": "0.0.11",
+    "which": "^1.0.8"
+  },
+  "dependencies": {}
+}
