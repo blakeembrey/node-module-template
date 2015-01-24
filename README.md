@@ -34,7 +34,7 @@ ls
 6. Update README file.
 7. `npm publish` and/or `bower register [name] [url]`
 
-## Dependencies
+## Interesting Dependencies
 
 * [Bunyan](https://github.com/trentm/node-bunyan) `npm install bunyan --save`
 * [Express](https://github.com/strongloop/express) `npm install express --save`
