@@ -12,7 +12,9 @@ My standard node module template.
 ## Installation
 
 ```sh
-npm install node-module-template --save
+git clone git@github.com:blakeembrey/node-module-template.git [ module name ]
+cd node-module-template
+rm -rf .git coverage
 ```
 
 ## Usage
@@ -20,7 +22,7 @@ npm install node-module-template --save
 ```js
 var template = require('node-module-template');
 
-template('hello world!'); //=> "HELLO WORLD!"
+template(); //=> "Hello world!"
 ```
 
 ## License

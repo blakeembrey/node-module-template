@@ -1,10 +1,10 @@
 module.exports = template;
 
 /**
- * Does something cool! :D
+ * Hello world.
  *
  * @return {String}
  */
 function template () {
-  return 'cool';
+  return 'Hello world!';
 }
