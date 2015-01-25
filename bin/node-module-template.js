@@ -104,7 +104,7 @@ githubUsername(email, function (err, username) {
     author: author,
     url: url,
     dev: program.dev,
-    description: '<description>',
+    description: '',
     username: username,
     license: license,
     licenseName: licenseName,
