@@ -18,8 +18,9 @@ npm install node-module-template -g
 ```sh
 node-module-template upper-case
 
-cd upper-case
-ls
+# Creating module...
+
+cd upper-case && ls
 # bower.json
 # package.json
 # README.md
@@ -33,6 +34,11 @@ ls
 5. Repeat step 3 until module is complete.
 6. Update README file.
 7. `npm publish` and/or `bower register [name] [url]`
+
+### Arguments
+
+* `-a, --author [value]`
+* `-l, --license [value]`
 
 ## Interesting Dependencies
 
