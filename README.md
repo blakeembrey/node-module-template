@@ -39,8 +39,8 @@ cd upper-case && ls
 
 ### Arguments
 
-* `-a, --author [value]`
-* `-l, --license [value]`
+* `-a, --author [value]` Set the author ("Blake Embrey <hello@blakeembrey.com>")
+* `-l, --license [value]` Set the license ("Apache-2.0")
 
 ## Interesting Dependencies
 
