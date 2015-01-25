@@ -39,12 +39,15 @@ if (!program.args.length) {
 
 var license = program.license;
 
+// Add whitespace below command line.
+log();
+
 // Exit on unknown license.
 if (!licenses.hasOwnProperty(license)) {
-  log();
-  log('Unknown license, use one of:');
+  log('Unknown license (%s), use one of:', license);
   log();
   log(Object.keys(licenses).join(', '));
+  log();
 
   process.exit();
 }
@@ -53,12 +56,12 @@ if (!licenses.hasOwnProperty(license)) {
 var info = somebody.parse(process.author || author);
 
 if (!info.name || !info.email) {
-  log();
   log(
     'Unable to get author name and email, run with %s option',
     chalk.bold('--author')
   );
   log();
+
   process.exit();
 }
 
@@ -73,23 +76,26 @@ var moduleSentence = sentenceCase(moduleName);
 
 var licenseName = licenses[license];
 
-log();
 log('Using name: %s', chalk.bold(name));
 log('Using email: %s', chalk.bold(email));
 log('Using license: %s', chalk.bold(licenseName));
 log('Using module name: %s', chalk.bold(moduleName));
-
 log();
+
 log(chalk.dim('Searching for GitHub username...'));
 log();
 
+// Search GitHub for your username.
 githubUsername(email, function (err, username) {
   if (err) {
     log(chalk.red('Unable to find GitHub username for %s'), email);
-    process.exit();
+    log();
+
+    return;
   }
 
   log('Using username: %s', chalk.bold(username));
+  log();
 
   return createModule(join(process.cwd(), moduleName), {
     moduleName: moduleName,
@@ -115,40 +121,61 @@ githubUsername(email, function (err, username) {
 function createModule (destDir, opts) {
   var srcDir = join(__dirname, '../src');
 
-  log();
   log(chalk.dim('Creating module...'));
   log();
+
+  /**
+   * Write a file to the filesystem.
+   *
+   * @param {String} destFile
+   * @param {String} contens
+   */
+  function writeFile (basename, contents) {
+    var filename = join(destDir, basename);
+
+    log('Writing "%s" to filesystem...', filename);
+    fs.writeFileSync(filename, contents);
+  }
 
   /**
    * Create a file in the destination directory.
    *
    * @param {String} filename
    */
-  function createFile (filename) {
-    var srcFile  = join(srcDir, filename);
-    var destFile = join(destDir, filename);
-    var contents = fs.readFileSync(srcFile, 'utf8');
+  function generateFile (filename) {
+    var contents = fs.readFileSync(join(srcDir, filename), 'utf8');
     var template = Handlebars.compile(contents);
 
-    fs.writeFileSync(destFile, template(opts));
+    writeFile(filename, template(opts));
   }
 
-  // Create the destination directory.
-  fs.mkdirSync(destDir);
+  try {
+    // Create the destination directory.
+    fs.mkdirSync(destDir);
+  } catch (e) {
+    log(chalk.red('Directory "%s" already exists'), destDir);
+    log();
+
+    return;
+  }
 
   try {
     // Copy files into destination directory.
-    fs.readdirSync(srcDir).forEach(createFile);
+    fs.readdirSync(srcDir).forEach(generateFile);
 
     // Write dynamic files manually.
-    fs.writeFileSync(join(destDir, opts.moduleName + '.js'), '');
-    fs.writeFileSync(join(destDir, 'LICENSE'), licenseFiles[license]);
+    writeFile(opts.moduleName + '.js', '');
+    writeFile('LICENSE', licenseFiles[license]);
+    log();
   } catch (e) {
-    // Remove if an error occurs.
+    // Remove everything if an error occurs.
     rimraf.sync(destDir);
 
     // Rethrow errors.
-    throw e;
+    log(chalk.red(e.message));
+    log();
+
+    return;
   }
 }
 
