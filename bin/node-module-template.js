@@ -196,12 +196,13 @@ function createModule (destDir, opts) {
   log('5. Edit %s to pass tests', chalk.magenta(opts.moduleMain));
   log('6. Repeat %s until complete', chalk.bold('step 3'));
   log('7. Update %s', chalk.magenta('README.md'));
+  log('8. Update %s with year and name', chalk.magenta('LICENSE'));
   log(
-    '8. %s',
+    '9. %s',
     chalk.yellow('git init && git add . && git commit -a -m "initial commit"')
   );
   log(
-    '9. Run %s and %s',
+    '10. Run %s and %s',
     chalk.yellow('npm publish'),
     chalk.yellow('bower register ' + opts.moduleName + ' ' + opts.moduleGit)
   );
