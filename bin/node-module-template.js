@@ -109,6 +109,7 @@ githubUsername(email, function (err, username) {
     license: license,
     licenseName: licenseName,
     moduleGit: 'git://github.com/' + username + '/' + moduleName + '.git',
+    moduleSsh: 'git@github.com:' + username + '/' + moduleName + '.git',
     moduleHomepage: 'https://github.com/' + username + '/' + moduleName
   });
 });
@@ -201,8 +202,21 @@ function createModule (destDir, opts) {
     '9. %s',
     chalk.yellow('git init && git add . && git commit -a -m "initial commit"')
   );
+  log('10. %s', chalk.yellow('mversion patch -m'));
+  log('11. Create %s on Github', chalk.dim(opts.moduleName));
   log(
-    '10. Run %s and %s',
+    '12. %s',
+    chalk.yellow(
+      'git remote add origin ' + opts.moduleSsh +
+      ' && git push -u origin master'
+    )
+  );
+  log(
+    '13. Go to https://travis-ci.org/ and http://coveralls.io/ to enable repos'
+  );
+  log('14. %s', chalk.yellow('git push --tags'));
+  log(
+    '15. Run %s and %s',
     chalk.yellow('npm publish'),
     chalk.yellow('bower register ' + opts.moduleName + ' ' + opts.moduleGit)
   );
