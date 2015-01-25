@@ -101,6 +101,7 @@ githubUsername(email, function (err, username) {
     moduleName: moduleName,
     moduleTitle: moduleTitle,
     moduleVariable: moduleVariable,
+    moduleSentence: moduleSentence,
     name: name,
     email: email,
     author: author,
