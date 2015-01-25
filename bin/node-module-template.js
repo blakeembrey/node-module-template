@@ -29,6 +29,7 @@ program
   .description(pkg.description)
   .option('-a, --author [value]', 'set the author [' + author + ']', author)
   .option('-l, --license [value]', 'set the module license [MIT]', 'MIT')
+  .option('--dev', 'create a dev package')
   .parse(process.argv);
 
 // Exit when no arguments.
@@ -68,12 +69,7 @@ if (!info.name || !info.email) {
 var name = info.name;
 var email = info.email;
 var url = info.url;
-
 var moduleName = paramCase(program.args[0]);
-var moduleTitle = titleCase(moduleName);
-var moduleVariable = camelCase(moduleName);
-var moduleSentence = sentenceCase(moduleName);
-
 var licenseName = licenses[license];
 
 log('Using name: %s', chalk.bold(name));
@@ -99,17 +95,21 @@ githubUsername(email, function (err, username) {
 
   return createModule(join(process.cwd(), moduleName), {
     moduleName: moduleName,
-    moduleTitle: moduleTitle,
-    moduleVariable: moduleVariable,
-    moduleSentence: moduleSentence,
+    moduleMain: moduleName + '.js',
+    moduleTitle: titleCase(moduleName),
+    moduleVariable: camelCase(moduleName),
+    moduleSentence: sentenceCase(moduleName),
     name: name,
     email: email,
     author: author,
     url: url,
-    description: moduleSentence,
+    dev: program.dev,
+    description: '<description>',
     username: username,
     license: license,
-    licenseName: licenseName
+    licenseName: licenseName,
+    moduleGit: 'git://github.com/' + username + '/' + moduleName + '.git',
+    moduleHomepage: 'https://github.com/' + username + '/' + moduleName
   });
 });
 
@@ -165,7 +165,7 @@ function createModule (destDir, opts) {
     fs.readdirSync(srcDir).forEach(generateFile);
 
     // Write dynamic files manually.
-    writeFile(opts.moduleName + '.js', '');
+    writeFile(opts.moduleMain, '');
     writeFile('LICENSE', licenseFiles[license]);
     log();
   } catch (e) {
@@ -178,6 +178,34 @@ function createModule (destDir, opts) {
 
     return;
   }
+
+  log(chalk.green('Module created!'));
+  log();
+
+  log('1. Remove unnecessary files');
+  log(
+    '2. Update %s and %s description and keywords',
+    chalk.magenta('package.json'),
+    chalk.magenta('bower.json')
+  );
+  log(
+    '3. Remove unnecessary dependencies and %s',
+    chalk.yellow('npm install')
+  );
+  log('4. Add test cases');
+  log('5. Edit %s to pass tests', chalk.magenta(opts.moduleMain));
+  log('6. Repeat %s until complete', chalk.bold('step 3'));
+  log('7. Update %s', chalk.magenta('README.md'));
+  log(
+    '8. %s',
+    chalk.yellow('git init && git add . && git commit -a -m "initial commit"')
+  );
+  log(
+    '9. Run %s and %s',
+    chalk.yellow('npm publish'),
+    chalk.yellow('bower register ' + opts.moduleName + ' ' + opts.moduleGit)
+  );
+  log();
 }
 
 /**

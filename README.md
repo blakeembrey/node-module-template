@@ -27,15 +27,7 @@ cd upper-case && ls
 # ...
 ```
 
-1. Remove any files that aren't neccessary to your configuration.
-2. Update the package (`package.json` and `bower.json`) description and keywords.
-3. Remove unnecessary dependencies and `npm install`
-4. Add test cases
-5. Implement module to pass test cases.
-6. Repeat step 3 until module is complete.
-7. Update README file.
-8. `git init && git add . && git commit -a -m "initial commit"`
-9. `npm publish` and/or `bower register [name] [url]`
+And you're good to go!
 
 ### Arguments
 

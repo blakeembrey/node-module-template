@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/{{{username}}}/{{{moduleName}}}.git"
+    "url": "{{{moduleGit}}}"
   },
   "keywords": [],
   "author": "{{{author}}}",
   "license": "{{{license}}}",
   "bugs": {
-    "url": "https://github.com/{{{username}}}/{{{moduleName}}}/issues"
+    "url": "{{{moduleHomepage}}}/issues"
   },
-  "homepage": "https://github.com/{{{username}}}/{{{moduleName}}}",
+  "homepage": "{{{moduleHomepage}}}",
   "devDependencies": {
     "chai": "^1.10.0",
     "istanbul": "^0.3.5",

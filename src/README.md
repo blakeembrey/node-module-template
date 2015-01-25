@@ -10,7 +10,7 @@
 ## Installation
 
 ```sh
-npm install {{{moduleName}}}
+npm install {{{moduleName}}} --save{{#if dev}}-dev{{/if}}
 ```
 
 ## Usage
