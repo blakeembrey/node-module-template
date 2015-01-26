@@ -17,17 +17,11 @@ var rimraf = require('rimraf');
 var somebody = require('somebody');
 var pkg = require('../package.json');
 
-// Set the basic author information.
-var author = somebody.stringify({
-  name: require('git-user-name'),
-  email: require('git-user-email')
-});
-
 // Program commands.
 program
   .version(pkg.version)
   .description(pkg.description)
-  .option('-a, --author [value]', 'set the author [' + author + ']', author)
+  .option('-a, --author [value]', 'set the author information')
   .option('-l, --license [value]', 'set the module license [MIT]', 'MIT')
   .option('-u, --username [value]', 'set the repository github username')
   .option('-r, --repo [value]', 'set the module repository name on github')
@@ -55,11 +49,13 @@ if (!licenses.hasOwnProperty(license)) {
   process.exit();
 }
 
-// Parse a passed in author.
-var info = somebody.parse(program.author || author);
-var username = program.username;
+// Set the author string.
+var author = program.author || somebody.stringify({
+  name: require('git-user-name'),
+  email: require('git-user-email')
+});
 
-if (!info.name) {
+if (!author) {
   log(
     'Unable to get author name and email, run with %s option',
     chalk.bold('--author')
@@ -69,7 +65,13 @@ if (!info.name) {
   process.exit();
 }
 
-if (!username && !info.email) {
+var moduleName = paramCase(program.args[0]);
+var email = somebody.parse(author).email;
+var licenseName = licenses[license];
+var username = program.username;
+var repoName = program.repo || moduleName;
+
+if (!username && !email) {
   log(
     'Unable to find GitHub username, run with %s option',
     chalk.bold('--username')
@@ -79,36 +81,30 @@ if (!username && !info.email) {
   process.exit();
 }
 
-var moduleName = paramCase(program.args[0]);
-var name = info.name;
-var email = info.email;
-var url = info.url;
-var repoName = program.repo || moduleName;
-var licenseName = licenses[license];
-var isDev = program.dev;
 
-log('Using name: %s', chalk.bold(name));
+log('Using author: %s', chalk.bold(author));
 log('Using license: %s', chalk.bold(licenseName));
 log('Using module name: %s', chalk.bold(moduleName));
+log('Using repository name: %s', chalk.bold(repoName));
 
 // Use passed in username, or search GitHub for your email.
 if (!username) {
   log();
-  log(chalk.dim('Searching for GitHub username using "%"...'), email);
+  log(chalk.dim('Searching GitHub usernames for "%s"...'), email);
   log();
 
   githubUsername(email, function (err, username) {
     if (err) {
-      log(chalk.red('Unable to find GitHub username for %s'), email);
+      log(chalk.red('Unable to find GitHub username for "%s"'), email);
       log();
 
       return;
     }
 
-    return createModuleUsername(username);
+    return createModuleWithUsername(username);
   });
 } else {
-  createModuleUsername(username);
+  createModuleWithUsername(username);
 }
 
 /**
@@ -116,7 +112,7 @@ if (!username) {
  *
  * @param {String} username
  */
-function createModuleUsername (username) {
+function createModuleWithUsername (username) {
   log('Using username: %s', chalk.bold(username));
   log();
 
@@ -128,8 +124,7 @@ function createModuleUsername (username) {
     moduleSentence: sentenceCase(moduleName),
     author: author,
     repoName: repoName,
-    url: url,
-    dev: isDev,
+    dev: program.dev,
     description: '',
     username: username,
     license: license,
