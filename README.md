@@ -31,8 +31,13 @@ And you're good to go!
 
 ### Arguments
 
-* `-a, --author [value]` Set the author ("Blake Embrey <hello@blakeembrey.com>")
-* `-l, --license [value]` Set the license ("Apache-2.0")
+* `-h, --help` output usage information
+* `-V, --version` output the version number
+* `-a, --author [value]` set the author string
+* `-l, --license [value]` set the module license
+* `-u, --username [value]` set the repository github username
+* `-r, --repo [value]` set the module repository name on github
+* `--dev` create a dev package
 
 ## Interesting Dependencies
 

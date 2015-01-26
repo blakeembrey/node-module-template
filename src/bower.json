@@ -1,7 +1,7 @@
 {
   "name": "{{{moduleName}}}",
   "version": "0.0.0",
-  "homepage": "https://github.com/{{{username}}}/{{{moduleName}}}",
+  "homepage": "{{{moduleHomepage}}}",
   "authors": [
     "{{{author}}}"
   ],

@@ -29,6 +29,8 @@ program
   .description(pkg.description)
   .option('-a, --author [value]', 'set the author [' + author + ']', author)
   .option('-l, --license [value]', 'set the module license [MIT]', 'MIT')
+  .option('-u, --username [value]', 'set the repository github username')
+  .option('-r, --repo [value]', 'set the module repository name on github')
   .option('--dev', 'create a dev package')
   .parse(process.argv);
 
@@ -54,9 +56,10 @@ if (!licenses.hasOwnProperty(license)) {
 }
 
 // Parse a passed in author.
-var info = somebody.parse(process.author || author);
+var info = somebody.parse(program.author || author);
+var username = program.username;
 
-if (!info.name || !info.email) {
+if (!info.name) {
   log(
     'Unable to get author name and email, run with %s option',
     chalk.bold('--author')
@@ -66,53 +69,76 @@ if (!info.name || !info.email) {
   process.exit();
 }
 
+if (!username && !info.email) {
+  log(
+    'Unable to find GitHub username, run with %s option',
+    chalk.bold('--username')
+  );
+  log();
+
+  process.exit();
+}
+
+var moduleName = paramCase(program.args[0]);
 var name = info.name;
 var email = info.email;
 var url = info.url;
-var moduleName = paramCase(program.args[0]);
+var repoName = program.repo || moduleName;
 var licenseName = licenses[license];
+var isDev = program.dev;
 
 log('Using name: %s', chalk.bold(name));
-log('Using email: %s', chalk.bold(email));
 log('Using license: %s', chalk.bold(licenseName));
 log('Using module name: %s', chalk.bold(moduleName));
-log();
 
-log(chalk.dim('Searching for GitHub username...'));
-log();
+// Use passed in username, or search GitHub for your email.
+if (!username) {
+  log();
+  log(chalk.dim('Searching for GitHub username using "%"...'), email);
+  log();
 
-// Search GitHub for your username.
-githubUsername(email, function (err, username) {
-  if (err) {
-    log(chalk.red('Unable to find GitHub username for %s'), email);
-    log();
+  githubUsername(email, function (err, username) {
+    if (err) {
+      log(chalk.red('Unable to find GitHub username for %s'), email);
+      log();
 
-    return;
-  }
+      return;
+    }
 
+    return createModuleUsername(username);
+  });
+} else {
+  createModuleUsername(username);
+}
+
+/**
+ * Create a module for username.
+ *
+ * @param {String} username
+ */
+function createModuleUsername (username) {
   log('Using username: %s', chalk.bold(username));
   log();
 
-  return createModule(join(process.cwd(), moduleName), {
+  return createModule(join(process.cwd(), repoName), {
     moduleName: moduleName,
     moduleMain: moduleName + '.js',
     moduleTitle: titleCase(moduleName),
     moduleVariable: camelCase(moduleName),
     moduleSentence: sentenceCase(moduleName),
-    name: name,
-    email: email,
     author: author,
+    repoName: repoName,
     url: url,
-    dev: program.dev,
+    dev: isDev,
     description: '',
     username: username,
     license: license,
     licenseName: licenseName,
-    moduleGit: 'git://github.com/' + username + '/' + moduleName + '.git',
-    moduleSsh: 'git@github.com:' + username + '/' + moduleName + '.git',
-    moduleHomepage: 'https://github.com/' + username + '/' + moduleName
+    moduleGit: format('git://github.com/%s/%s.git', username, repoName),
+    moduleSsh: format('git@github.com:%s/%s.git', username, repoName),
+    moduleHomepage: format('https://github.com/%s/%s', username, repoName)
   });
-});
+}
 
 /**
  * Create a module folder.
@@ -183,40 +209,43 @@ function createModule (destDir, opts) {
   log(chalk.green('Module created!'));
   log();
 
-  log('1. Remove unnecessary files');
+  log('1. %s', chalk.yellow('cd ' + destDir));
+  log('2. Remove unnecessary files');
   log(
-    '2. Update %s and %s description and keywords',
+    '3. Update %s and %s description and keywords',
     chalk.magenta('package.json'),
     chalk.magenta('bower.json')
   );
   log(
-    '3. Remove unnecessary dependencies and %s',
+    '4. Remove unnecessary dependencies and %s',
     chalk.yellow('npm install')
   );
-  log('4. Add test cases');
-  log('5. Edit %s to pass tests', chalk.magenta(opts.moduleMain));
-  log('6. Repeat %s until complete', chalk.bold('step 3'));
-  log('7. Update %s', chalk.magenta('README.md'));
-  log('8. Update %s with year and name', chalk.magenta('LICENSE'));
+  log('5. Add test cases');
+  log('6. Edit %s to pass tests', chalk.magenta(opts.moduleMain));
+  log('7. Repeat %s until complete', chalk.bold('step 3'));
+  log('8. Update %s', chalk.magenta('README.md'));
+  log('9. Update %s with year and name', chalk.magenta('LICENSE'));
   log(
-    '9. %s',
+    '10. %s',
     chalk.yellow('git init && git add . && git commit -a -m "initial commit"')
   );
-  log('10. %s', chalk.yellow('mversion patch -m'));
-  log('11. Create %s on Github', chalk.dim(opts.moduleName));
+  log('11. %s', chalk.yellow('mversion patch -m'));
+  log('12. Create %s on Github', chalk.dim(opts.repoName));
   log(
-    '12. %s',
+    '13. %s',
     chalk.yellow(
       'git remote add origin ' + opts.moduleSsh +
       ' && git push -u origin master'
     )
   );
   log(
-    '13. Go to https://travis-ci.org/ and http://coveralls.io/ to enable repos'
+    '14. Go to %s and %s and enable repo access',
+    chalk.dim('https://travis-ci.org/'),
+    chalk.dim('http://coveralls.io/')
   );
-  log('14. %s', chalk.yellow('git push --tags'));
+  log('15. %s', chalk.yellow('git push --tags'));
   log(
-    '15. Run %s and %s',
+    '16. Run %s and %s',
     chalk.yellow('npm publish'),
     chalk.yellow('bower register ' + opts.moduleName + ' ' + opts.moduleGit)
   );
