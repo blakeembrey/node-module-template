@@ -7,6 +7,9 @@
     "bin/node-module-template.js",
     "LICENSE"
   ],
+  "scripts": {
+    "test": "standard"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/blakeembrey/node-module-template.git"
@@ -43,5 +46,15 @@
     "sentence-case": "^1.1.1",
     "somebody": "^2.0.0",
     "title-case": "^1.1.0"
+  },
+  "devDependencies": {
+    "pre-commit": "0.0.11",
+    "standard": "^2.1.1",
+    "which": "^1.0.8"
+  },
+  "standard": {
+    "ignore": [
+      "src/**"
+    ]
   }
 }
