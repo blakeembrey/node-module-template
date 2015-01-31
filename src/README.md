@@ -16,9 +16,9 @@ npm install {{{moduleName}}} --save{{#if dev}}-dev{{/if}}
 ## Usage
 
 ```js
-var {{{moduleVariable}}} = require('{{{moduleName}}}');
+var {{{moduleVariable}}} = require('{{{moduleName}}}')
 
-{{{moduleVariable}}}(); //=> "Hello world!"
+{{{moduleVariable}}}() //=> "Hello World!"
 ```
 
 ## License
