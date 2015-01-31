@@ -1,7 +1,7 @@
 # Node Module Template
 
 [![NPM version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
+[![NPM downloads][downloads-image]][downloads-url]
 
 Create my standard node module template.
 
