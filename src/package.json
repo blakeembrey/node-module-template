@@ -12,6 +12,13 @@
     "mocha": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --bail",
     "test": "npm run lint && npm run mocha"
   },
+  "standard": {
+    "ignore": [
+      "coverage/**",
+      "node_modules/**",
+      "bower_components/**"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "{{{moduleGit}}}"
