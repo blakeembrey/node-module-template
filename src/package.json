@@ -9,8 +9,9 @@
   ],
   "scripts": {
     "lint": "standard",
-    "mocha": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --bail",
-    "test": "npm run lint && npm run mocha"
+    "test-std": "mocha -- -R spec --bail",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --bail",
+    "test": "npm run lint && npm run test-cov"
   },
   "standard": {
     "ignore": [
