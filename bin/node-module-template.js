@@ -216,7 +216,7 @@ function createModule (destDir, opts) {
   )
   log('5. Add test cases')
   log('6. Edit %s to pass tests', chalk.magenta(opts.moduleMain))
-  log('7. Repeat %s until complete', chalk.bold('step 3'))
+  log('7. Repeat %s until complete', chalk.bold('step 5'))
   log('8. Update %s', chalk.magenta('README.md'))
   log('9. Update %s with year and name', chalk.magenta('LICENSE'))
   log(
