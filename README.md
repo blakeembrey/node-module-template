@@ -9,13 +9,13 @@ Create my standard node module template.
 
 ## Installation
 
-```sh
+```
 npm install node-module-template -g
 ```
 
 ## Usage
 
-```sh
+```
 node-module-template upper-case
 
 # Creating module...
