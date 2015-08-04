@@ -25,7 +25,7 @@ program
   .option('-l, --license [value]', 'set the module license [MIT]', 'MIT')
   .option('-u, --username [value]', 'set the repository github username')
   .option('-r, --repo [value]', 'set the module repository name on github')
-  .option('--dev', 'create a dev package')
+  .option('-d, --dev', 'create a dev package')
   .parse(process.argv)
 
 // Exit when no arguments.
