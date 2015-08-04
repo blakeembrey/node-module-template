@@ -48,8 +48,8 @@
     "title-case": "^1.1.0"
   },
   "devDependencies": {
-    "pre-commit": "^1.0.1",
-    "standard": "^2.1.1"
+    "pre-commit": "^1.1.1",
+    "standard": "^5.0.0"
   },
   "standard": {
     "ignore": [
