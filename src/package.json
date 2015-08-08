@@ -2,9 +2,9 @@
   "name": "{{{moduleName}}}",
   "version": "0.0.0",
   "description": "{{{description}}}",
-  "main": "{{{moduleName}}}.js",
+  "main": "lib/index.js",
   "files": [
-    "{{{moduleName}}}.js",
+    "lib/index.js",
     "LICENSE"
   ],
   "scripts": {

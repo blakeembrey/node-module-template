@@ -117,7 +117,6 @@ function createModuleWithUsername (username) {
 
   return createModule(join(process.cwd(), repoName), {
     moduleName: moduleName,
-    moduleMain: moduleName + '.js',
     moduleTitle: titleCase(moduleName),
     moduleVariable: camelCase(moduleName),
     moduleSentence: sentenceCase(moduleName),
@@ -185,8 +184,7 @@ function createModule (destDir, opts) {
     // Copy files into destination directory.
     fs.readdirSync(srcDir).forEach(generateFile)
 
-    // Write dynamic files manually.
-    writeFile(opts.moduleMain, '')
+    // Write dynamic files.
     writeFile('LICENSE', licenseFiles[license])
     log()
   } catch (err) {
