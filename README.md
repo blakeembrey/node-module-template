@@ -16,11 +16,11 @@ npm install node-module-template -g
 ## Usage
 
 ```
-node-module-template upper-case
+node-module-template foobar
 
 # Creating module...
 
-cd upper-case && ls
+cd foobar && ls
 # bower.json
 # package.json
 # README.md
