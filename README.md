@@ -37,7 +37,7 @@ And you're good to go!
 * `-l, --license [value]` set the module license
 * `-u, --username [value]` set the repository github username
 * `-r, --repo [value]` set the module repository name on github
-* `--dev` create a dev package
+* `-d, --dev` create a dev package
 
 ## Interesting Dependencies
 
