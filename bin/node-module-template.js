@@ -189,12 +189,12 @@ function createModule (destDir, opts) {
     writeFile(opts.moduleMain, '')
     writeFile('LICENSE', licenseFiles[license])
     log()
-  } catch (e) {
+  } catch (err) {
     // Remove everything if an error occurs.
     rimraf.sync(destDir)
 
     // Rethrow errors.
-    log(chalk.red(e.message))
+    log(chalk.red(err.message))
     log()
 
     return
