@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "standard",
     "test-spec": "mocha \"{lib,test}/**/*.spec.js\" -R spec --bail",
-    "test-cov": "istanbul cover -x *.spec.js node_modules/mocha/bin/_mocha -- \"{lib,test}/**/*.spec.js\" -R spec --bail",
+    "test-cov": "istanbul cover -x \"*.spec.js\" node_modules/mocha/bin/_mocha -- \"{lib,test}/**/*.spec.js\" -R spec --bail",
     "test": "npm run lint && npm run test-cov"
   },
   "standard": {
