@@ -10,11 +10,13 @@ var titleCase = require('title-case')
 var camelCase = require('camel-case')
 var sentenceCase = require('sentence-case')
 var fs = require('fs')
-var join = require('path').join
+var path = require('path')
 var format = require('util').format
 var Handlebars = require('handlebars')
 var rimraf = require('rimraf')
 var somebody = require('somebody')
+var glob = require('glob')
+var mkdirp = require('mkdirp')
 var pkg = require('../package.json')
 
 // Program commands.
@@ -115,7 +117,7 @@ function createModuleWithUsername (username) {
   log('Using username: %s', chalk.bold(username))
   log()
 
-  return createModule(join(process.cwd(), repoName), {
+  return createModule(path.join(process.cwd(), repoName), {
     moduleName: moduleName,
     moduleTitle: titleCase(moduleName),
     moduleVariable: camelCase(moduleName),
@@ -140,7 +142,7 @@ function createModuleWithUsername (username) {
  * @param {Object} opts
  */
 function createModule (destDir, opts) {
-  var srcDir = join(__dirname, '../src')
+  var srcDir = path.join(__dirname, '../src')
 
   log(chalk.dim('Creating module...'))
   log()
@@ -152,9 +154,11 @@ function createModule (destDir, opts) {
    * @param {String} contens
    */
   function writeFile (basename, contents) {
-    var filename = join(destDir, basename)
+    var filename = path.join(destDir, basename)
 
     log('Writing "%s" to filesystem...', filename)
+
+    mkdirp.sync(path.dirname(filename))
     fs.writeFileSync(filename, contents)
   }
 
@@ -164,7 +168,7 @@ function createModule (destDir, opts) {
    * @param {String} filename
    */
   function generateFile (filename) {
-    var contents = fs.readFileSync(join(srcDir, filename), 'utf8')
+    var contents = fs.readFileSync(path.join(srcDir, filename), 'utf8')
     var template = Handlebars.compile(contents)
 
     writeFile(filename, template(opts))
@@ -182,7 +186,7 @@ function createModule (destDir, opts) {
 
   try {
     // Copy files into destination directory.
-    fs.readdirSync(srcDir).forEach(generateFile)
+    glob.sync('**/{.*,*}', { cwd: srcDir, nodir: true }).forEach(generateFile)
 
     // Write dynamic files.
     writeFile('LICENSE', licenseFiles[license])
