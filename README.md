@@ -39,7 +39,17 @@ And you're good to go!
 * `-r, --repo [value]` set the module repository name on github
 * `-d, --dev` create a dev package
 
-## Interesting Dependencies
+## Interesting Modules
+
+### CLI
+
+* [mversion](https://github.com/mikaelbr/mversion) `npm install mversion -g`
+* [npm-dview](https://github.com/skratchdot/npm-dview) `npm install npm-dview -g`
+* [notes](https://github.com/stephenb/node-notes) `npm install notes -g`
+* [david](https://github.com/alanshaw/david) `npm install david -g`
+* [serve](https://www.npmjs.com/package/serve) `npm install serve -g`
+
+### Dependencies
 
 * [Bunyan](https://github.com/trentm/node-bunyan) `npm install bunyan --save`
 * [Express](https://github.com/strongloop/express) `npm install express --save`
