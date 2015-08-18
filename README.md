@@ -48,6 +48,7 @@ And you're good to go!
 * [notes](https://github.com/stephenb/node-notes) `npm install notes -g`
 * [david](https://github.com/alanshaw/david) `npm install david -g`
 * [serve](https://www.npmjs.com/package/serve) `npm install serve -g`
+* [travis](https://github.com/travis-ci/travis.rb) `gem install travis`
 
 ### Dependencies
 
