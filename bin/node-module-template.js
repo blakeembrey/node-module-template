@@ -171,7 +171,13 @@ function createModule (destDir, opts) {
     var contents = fs.readFileSync(path.join(srcDir, filename), 'utf8')
     var template = Handlebars.compile(contents)
 
-    writeFile(filename, template(opts))
+    // Remove underscore prefix from base filename.
+    var outFilename = path.join(
+      path.dirname(filename),
+      path.basename(filename).replace(/^_/, '')
+    )
+
+    writeFile(outFilename, template(opts))
   }
 
   try {
@@ -186,7 +192,7 @@ function createModule (destDir, opts) {
 
   try {
     // Copy files into destination directory.
-    glob.sync('**/{.*,*}', { cwd: srcDir, nodir: true }).forEach(generateFile)
+    glob.sync('**/_*', { cwd: srcDir, nodir: true }).forEach(generateFile)
 
     // Write dynamic files.
     writeFile('LICENSE', licenseFiles[license])
