@@ -1,6 +1,6 @@
 {
   "name": "node-module-template",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Generate my standard node module template",
   "bin": "bin/node-module-template.js",
   "files": [
