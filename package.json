@@ -5,6 +5,7 @@
   "bin": "bin/node-module-template.js",
   "files": [
     "bin/node-module-template.js",
+    "src/",
     "LICENSE"
   ],
   "scripts": {
