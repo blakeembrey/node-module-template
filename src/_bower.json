@@ -6,7 +6,7 @@
     "{{{author}}}"
   ],
   "description": "{{{description}}}",
-  "main": "{{{moduleName}}}.js",
+  "main": "lib/index.js",
   "keywords": [],
   "license": "{{{license}}}",
   "ignore": [

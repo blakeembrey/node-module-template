@@ -4,7 +4,7 @@
   "description": "Generate my standard node module template",
   "bin": "bin/node-module-template.js",
   "files": [
-    "bin/node-module-template.js",
+    "bin/",
     "src/",
     "LICENSE"
   ],
@@ -48,6 +48,7 @@
     "rimraf": "^2.2.8",
     "sentence-case": "^1.1.1",
     "somebody": "^2.0.0",
+    "spawn-sync": "^1.0.13",
     "title-case": "^1.1.0"
   },
   "devDependencies": {

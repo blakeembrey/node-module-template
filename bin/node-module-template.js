@@ -17,6 +17,7 @@ var rimraf = require('rimraf')
 var somebody = require('somebody')
 var glob = require('glob')
 var mkdirp = require('mkdirp')
+var spawnSync = require('spawn-sync')
 var pkg = require('../package.json')
 
 // Program commands.
@@ -208,49 +209,17 @@ function createModule (destDir, opts) {
     return
   }
 
-  log(chalk.green('Module created!'))
-  log()
+  spawnSync('git', ['init'], { cwd: destDir })
+  spawnSync('git', ['remote', 'add', 'origin', opts.moduleSsh], { cwd: destDir })
 
-  log('1. %s', chalk.yellow('cd ' + destDir))
-  log('2. Remove unnecessary files')
+  log('Git remote %s added', chalk.yellow(opts.moduleSsh))
+  log()
   log(
-    '3. Update %s and %s description and keywords',
-    chalk.magenta('package.json'),
-    chalk.magenta('bower.json')
+    'Done! Remember to update %s with the year and author name',
+    chalk.magenta('LICENSE')
   )
-  log(
-    '4. Remove unnecessary dependencies and %s',
-    chalk.yellow('npm install')
-  )
-  log('5. Add test cases')
-  log('6. Edit %s to pass tests', chalk.magenta(opts.moduleMain))
-  log('7. Repeat %s until complete', chalk.bold('step 5'))
-  log('8. Update %s', chalk.magenta('README.md'))
-  log('9. Update %s with year and name', chalk.magenta('LICENSE'))
-  log(
-    '10. %s',
-    chalk.yellow('git init && git add . && git commit -a -m "initial commit"')
-  )
-  log('11. %s', chalk.yellow('mversion patch -m'))
-  log('12. Create %s on Github', chalk.dim(opts.repoName))
-  log(
-    '13. %s',
-    chalk.yellow(
-      'git remote add origin ' + opts.moduleSsh +
-      ' && git push -u origin master'
-    )
-  )
-  log(
-    '14. Go to %s and %s and enable repo access',
-    chalk.dim('https://travis-ci.org/'),
-    chalk.dim('http://coveralls.io/')
-  )
-  log('15. %s', chalk.yellow('git push --tags'))
-  log(
-    '16. Run %s and %s',
-    chalk.yellow('npm publish'),
-    chalk.yellow('bower register ' + opts.moduleName + ' ' + opts.moduleGit)
-  )
+  log()
+  log(chalk.yellow('cd %s'), destDir)
   log()
 }
 
