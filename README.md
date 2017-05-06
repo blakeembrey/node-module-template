@@ -1,5 +1,7 @@
 # Node Module Template
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/blakeembrey/node-module-template.svg)](https://greenkeeper.io/)
+
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][downloads-image]][downloads-url]
 
